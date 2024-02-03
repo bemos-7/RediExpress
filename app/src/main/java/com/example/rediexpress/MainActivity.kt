@@ -2,6 +2,7 @@ package com.example.rediexpress
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.rediexpress.account.OtpVerificationFragment
 import com.example.rediexpress.account.SignUpFragment
 import com.example.rediexpress.databinding.ActivityMainBinding
 import com.example.rediexpress.introduction.IntroductionFragment
@@ -19,11 +20,13 @@ class MainActivity : AppCompatActivity() {
 
         introductionFragment = IntroductionFragment()
 
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.frame_container, IntroductionFragment())
+//            .commit()
+
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_container, IntroductionFragment())
+            .replace(R.id.frame_container, OtpVerificationFragment())
             .commit()
-
-
 
     }
 }

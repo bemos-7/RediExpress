@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
+        android:paddingTop="80dp"
         android:orientation="vertical">
 
 
@@ -25,7 +26,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_weight="1"
-            android:text="Create an account" />
+            android:text="Welcome Back" />
 
         <TextView
             android:id="@+id/textView11"
@@ -33,11 +34,11 @@
             android:layout_height="wrap_content"
             android:textSize="14dp"
             android:layout_weight="1"
-            android:text="Complete the sign up process to get started" />
+            android:text="Fill in your email and password to continue" />
 
         <TextView
             android:id="@+id/full_name"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14dp"
@@ -45,55 +46,16 @@
             android:text="Full name" />
 
         <EditText
-            android:id="@+id/full_name_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_text_correct"
-            android:textSize="14dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Ivanov Ivan" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:textSize="14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:text="Phone number" />
-
-        <EditText
-            android:id="@+id/number_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_text_correct"
-            android:textSize="14dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="phone"
-            android:hint="+7(999)999-99-99" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:textSize="14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:text="Email Address" />
-
-        <EditText
             android:id="@+id/email_input"
-            android:background="@drawable/input_text_correct"
-            android:textSize="14dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/input_text_correct"
+            android:textSize="14dp"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:hint="***********@mail.ru" />
+            android:hint="***********@mail.com" />
+
 
         <TextView
             android:id="@+id/textView7"
@@ -116,49 +78,27 @@
             android:inputType="textPassword"
             android:hint="**********" />
 
-        <TextView
-            android:id="@+id/password_text"
-            android:textSize="14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:text="Confirm Password" />
-
-        <EditText
-            android:id="@+id/password_input2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_text_correct"
-            android:drawableEnd="@drawable/eye_slash"
-            android:textSize="14dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="**********" />
-
         <LinearLayout
-            android:layout_marginTop="37dp"
+            android:layout_marginTop="17dp"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:gravity="start">
 
             <CheckBox
-                android:layout_gravity="end"
+                android:layout_gravity="center"
                 android:id="@+id/checkBox"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="11dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -166,26 +106,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
-                        android:text="By ticking this box, you agree to our " />
+                        android:text="Remember password" />
+
 
                     <TextView
+                        android:id="@+id/forgot_password_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#EBBC2E"
+                        android:layout_marginLeft="115dp"
+                        android:textColor="@color/blue"
                         android:textSize="12dp"
-                        android:text="Terms and"/>
+                        android:text="Forgot Password?" />
 
                 </LinearLayout>
 
 
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#EBBC2E"
-                    android:textSize="12dp"
-                    android:text="conditions and private policy" />
 
             </LinearLayout>
 
@@ -194,8 +130,8 @@
         </LinearLayout>
 
         <Button
-            android:layout_marginTop="64dp"
-            android:id="@+id/sign_button"
+            android:layout_marginTop="187dp"
+            android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_sign_reg"
@@ -203,7 +139,7 @@
             android:enabled="false"
             android:layout_weight="1"
             android:textAllCaps="false"
-            android:text="Sign Up" />
+            android:text="Log in" />
 
         <LinearLayout
             android:layout_marginTop="20dp"
@@ -218,11 +154,11 @@
                 android:text="Already have an account?"/>
 
             <TextView
-                android:id="@+id/login_text"
+                android:id="@+id/sign_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
-                android:text="Log in"/>
+                android:text="Sign Up"/>
 
         </LinearLayout>
 
@@ -248,8 +184,8 @@
         </LinearLayout>
 
 
-        
+
 
 
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
+import com.example.rediexpress.account.LoginFragment
 import com.example.rediexpress.account.SignUpFragment
 import com.example.rediexpress.databinding.IntroductionFragmentBinding
 
@@ -49,6 +50,7 @@ class IntroductionFragment : Fragment() {
                     nextBt.isInvisible = true
                     skipBt.isInvisible = true
                     signUpBt.isVisible = true
+                    signUpBt.isEnabled = true
                     textTv.isVisible = true
                     textTv2.isVisible = true
                     count++
@@ -73,6 +75,12 @@ class IntroductionFragment : Fragment() {
 
                 parentFragmentManager.beginTransaction().replace(R.id.frame_container, SignUpFragment()).commit()
 
+            }
+
+            textTv2.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, LoginFragment())
+                    .commit()
             }
 
         }

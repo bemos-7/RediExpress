@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.rediexpress.R
@@ -49,17 +50,19 @@ class OtpVerificationFragment : Fragment() {
 
             }
 
-            timer = object : CountDownTimer(5000, 0) {
+            timer = object : CountDownTimer(60000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
-                    timerText.text = millisUntilFinished.toString()
+                    timerText.text = "If you didn’t receive code, ${(millisUntilFinished / 1000).toString()}"
+                    timerText.isEnabled = false
                 }
 
                 override fun onFinish() {
                     timerText.text = "If you didn’t receive code, resend"
+                    timerText.isEnabled = true
                 }
 
 
-            }
+            }.start()
 
         }
     }

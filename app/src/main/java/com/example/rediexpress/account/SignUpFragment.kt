@@ -89,6 +89,7 @@ class SignUpFragment : Fragment() {
             loginText.setOnClickListener {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.frame_container, LoginFragment())
+                    .addToBackStack(null)
                     .commit()
             }
 

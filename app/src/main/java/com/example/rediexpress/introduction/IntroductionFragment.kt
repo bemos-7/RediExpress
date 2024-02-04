@@ -73,13 +73,14 @@ class IntroductionFragment : Fragment() {
 
             signUpBt.setOnClickListener {
 
-                parentFragmentManager.beginTransaction().replace(R.id.frame_container, SignUpFragment()).commit()
+                parentFragmentManager.beginTransaction().replace(R.id.frame_container, SignUpFragment()).addToBackStack(null).commit()
 
             }
 
             textTv2.setOnClickListener {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.frame_container, LoginFragment())
+                    .addToBackStack(null)
                     .commit()
             }
 

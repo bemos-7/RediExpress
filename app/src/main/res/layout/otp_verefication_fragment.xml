@@ -109,6 +109,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white_gray"
             android:text="If you didn’t receive code, resend after 1:00"/>
 
         <Button

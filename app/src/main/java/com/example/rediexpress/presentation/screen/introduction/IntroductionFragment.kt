@@ -1,4 +1,4 @@
-package com.example.rediexpress.introduction
+package com.example.rediexpress.presentation.screen.introduction
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
-import com.example.rediexpress.account.LoginFragment
-import com.example.rediexpress.account.SignUpFragment
+import com.example.rediexpress.presentation.screen.account.LoginFragment
+import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragment
 import com.example.rediexpress.databinding.IntroductionFragmentBinding
 
 class IntroductionFragment : Fragment() {
@@ -27,7 +26,6 @@ class IntroductionFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
         var count = 0
 

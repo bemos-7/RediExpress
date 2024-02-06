@@ -1,4 +1,4 @@
-package com.example.rediexpress.account
+package com.example.rediexpress.presentation.screen.account
 
 import android.os.Bundle
 import android.util.Patterns
@@ -9,6 +9,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.LoginFragmentBinding
+import com.example.rediexpress.presentation.screen.account.forgot_password.ForgotPasswordFragment
+import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragment
 
 class LoginFragment : Fragment() {
 

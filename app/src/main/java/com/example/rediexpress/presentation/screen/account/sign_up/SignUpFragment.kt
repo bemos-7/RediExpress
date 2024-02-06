@@ -1,4 +1,4 @@
-package com.example.rediexpress.account
+package com.example.rediexpress.presentation.screen.account.sign_up
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,16 +6,19 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SignUpFragmentBinding
-import java.util.regex.Pattern
+import com.example.rediexpress.presentation.screen.account.LoginFragment
+import com.example.rediexpress.presentation.screen.account.sign_up.vm.SignUpViewModel
 
 class SignUpFragment : Fragment() {
 
     lateinit var binding: SignUpFragmentBinding
+    lateinit var viewModelSignUp: SignUpViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +31,8 @@ class SignUpFragment : Fragment() {
 
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        viewModelSignUp = ViewModelProvider(this).get(SignUpViewModel::class.java)
 
         with(binding) {
 
@@ -70,7 +75,9 @@ class SignUpFragment : Fragment() {
                 if (passwordInput.text.toString() != pass) {
                     passwordInput2.setBackgroundResource(R.drawable.input_text_incorrect)
                 }
-                else passwordInput2.setBackgroundResource(R.drawable.input_text_correct)
+                else {
+                    passwordInput2.setBackgroundResource(R.drawable.input_text_correct)
+                }
 
             }
 
@@ -87,6 +94,9 @@ class SignUpFragment : Fragment() {
             }
 
             loginText.setOnClickListener {
+
+                viewModelSignUp.signUp(emailInput.text.toString(), passwordInput2.text.toString())
+
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.frame_container, LoginFragment())
                     .addToBackStack(null)

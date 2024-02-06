@@ -1,4 +1,4 @@
-package com.example.rediexpress.account
+package com.example.rediexpress.presentation.screen.account.forgot_password
 
 import android.os.Bundle
 import android.util.Patterns
@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.ForgotPasswordFragmentBinding
+import com.example.rediexpress.presentation.screen.account.OtpVerificationFragment
+import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragment
+import com.example.rediexpress.presentation.screen.account.forgot_password.vm.ForgotPasswordViewModel
 
 class ForgotPasswordFragment : Fragment() {
 
     lateinit var binding: ForgotPasswordFragmentBinding
-
+    lateinit var viewModelForgotPassword: ForgotPasswordViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,6 +28,8 @@ class ForgotPasswordFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        viewModelForgotPassword = ViewModelProvider(this).get(ForgotPasswordViewModel::class.java)
 
         binding.emailInput.addTextChangedListener {
 
@@ -44,6 +50,8 @@ class ForgotPasswordFragment : Fragment() {
         }
 
         binding.sendButton.setOnClickListener {
+
+            viewModelForgotPassword.forgotPass(binding.emailInput.text.toString())
 
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_container, OtpVerificationFragment())

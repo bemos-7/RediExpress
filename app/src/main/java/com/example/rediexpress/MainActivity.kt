@@ -2,10 +2,13 @@ package com.example.rediexpress
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.rediexpress.account.OtpVerificationFragment
-import com.example.rediexpress.account.SignUpFragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.databinding.ActivityMainBinding
-import com.example.rediexpress.introduction.IntroductionFragment
+import com.example.rediexpress.presentation.screen.account.forgot_password.ForgotPasswordFragment
+import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragment
+import com.example.rediexpress.presentation.screen.account.sign_up.vm.SignUpViewModel
+import com.example.rediexpress.presentation.screen.introduction.IntroductionFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 //            .commit()
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_container, OtpVerificationFragment())
+            .replace(R.id.frame_container, ForgotPasswordFragment())
             .commit()
 
     }

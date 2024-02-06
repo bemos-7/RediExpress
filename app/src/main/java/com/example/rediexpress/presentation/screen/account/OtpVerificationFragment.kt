@@ -1,4 +1,4 @@
-package com.example.rediexpress.account
+package com.example.rediexpress.presentation.screen.account
 
 import android.os.Bundle
 import android.os.CountDownTimer

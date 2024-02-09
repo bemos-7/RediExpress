@@ -14,11 +14,11 @@ class SignUpViewModel(
 ) : ViewModel() {
 
     var scope = CoroutineScope(Dispatchers.IO)
-    fun signUp(email: String, password: String) {
+    fun signUp(email: String, password: String, phone: String, name: String) {
 
         scope.launch {
 
-            authManager.signUp(email, password)
+            authManager.signUp(name, phone, email, password)
 
         }
     }

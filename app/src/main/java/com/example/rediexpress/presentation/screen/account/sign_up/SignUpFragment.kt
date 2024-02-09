@@ -9,16 +9,16 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.rediexpress.MainActivity
+import com.example.rediexpress.App
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SignUpFragmentBinding
-import com.example.rediexpress.presentation.screen.account.LoginFragment
+import com.example.rediexpress.presentation.screen.account.sign_in.LoginFragment
 import com.example.rediexpress.presentation.screen.account.sign_up.vm.SignUpViewModel
 
 class SignUpFragment : Fragment() {
 
     lateinit var binding: SignUpFragmentBinding
-    lateinit var viewModelSignUp: SignUpViewModel
+    val viewModelSignUp = SignUpViewModel(App.instance.baseAuthManager)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +32,7 @@ class SignUpFragment : Fragment() {
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModelSignUp = ViewModelProvider(this).get(SignUpViewModel::class.java)
+
 
         with(binding) {
 
@@ -58,25 +58,45 @@ class SignUpFragment : Fragment() {
                 }
                 else {
                     emailInput.setBackgroundResource(R.drawable.input_text_correct)
+                    signButton.isEnabled = checkProfile()
                 }
 
             }
 
             checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
 
-                signButton.isEnabled = true
+                signButton.isEnabled = checkProfile()
 
             }
 
-            passwordInput2.addTextChangedListener {
+            passwordInput.addTextChangedListener {
 
-                val pass = it.toString()
+                val password = it.toString()
 
-                if (passwordInput.text.toString() != pass) {
+                if (passwordInput2.text.toString() != password && password.length > 6 && passwordInput2.text.toString().length > 6) {
+                    passwordInput.setBackgroundResource(R.drawable.input_text_incorrect)
                     passwordInput2.setBackgroundResource(R.drawable.input_text_incorrect)
                 }
                 else {
+                    passwordInput.setBackgroundResource(R.drawable.input_text_correct)
                     passwordInput2.setBackgroundResource(R.drawable.input_text_correct)
+                    signButton.isEnabled = checkProfile()
+                }
+            }
+
+
+            passwordInput2.addTextChangedListener {
+
+                val password = it.toString()
+
+                if (passwordInput.text.toString() != password && password.length > 6 && passwordInput.text.toString().length > 6) {
+                    passwordInput2.setBackgroundResource(R.drawable.input_text_incorrect)
+                    passwordInput.setBackgroundResource(R.drawable.input_text_incorrect)
+                }
+                else {
+                    passwordInput2.setBackgroundResource(R.drawable.input_text_correct)
+                    passwordInput.setBackgroundResource(R.drawable.input_text_correct)
+                    signButton.isEnabled = checkProfile()
                 }
 
             }
@@ -86,7 +106,7 @@ class SignUpFragment : Fragment() {
 
                 if (fullNameInput.text != null || emailInput.text != null || passwordInput.text != null || passwordInput2 != null) {
                     if (passwordInput.text.toString() == passwordInput2.text.toString()) {
-                        parentFragmentManager
+                        viewModelSignUp.signUp(emailInput.text.toString(), passwordInput2.text.toString(), numberInput.text.toString(), fullNameInput.text.toString())
                     }
                     else passwordInput2.setBackgroundResource(R.drawable.input_text_incorrect)
                 }
@@ -94,8 +114,6 @@ class SignUpFragment : Fragment() {
             }
 
             loginText.setOnClickListener {
-
-                viewModelSignUp.signUp(emailInput.text.toString(), passwordInput2.text.toString())
 
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.frame_container, LoginFragment())
@@ -105,6 +123,12 @@ class SignUpFragment : Fragment() {
 
 
         }
+
+    }
+
+    fun checkProfile() : Boolean = with(binding) {
+
+        return@with (passwordInput2.text.toString() == passwordInput.text.toString()) && checkBox.isChecked
 
     }
 

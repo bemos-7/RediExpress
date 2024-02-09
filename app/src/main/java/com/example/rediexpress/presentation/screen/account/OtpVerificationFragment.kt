@@ -32,12 +32,12 @@ class OtpVerificationFragment : Fragment() {
 
             var count = 0
 
-            notEmptyBlue(oneDigit)
-            notEmptyBlue(twoDigit)
-            notEmptyBlue(threeDigit)
-            notEmptyBlue(fourDigit)
-            notEmptyBlue(fiveDigit)
-            notEmptyBlue(sixDigit)
+            notEmptyBlue(oneDigit, twoDigit)
+            notEmptyBlue(twoDigit, threeDigit)
+            notEmptyBlue(threeDigit, fourDigit)
+            notEmptyBlue(fourDigit, fiveDigit)
+            notEmptyBlue(fiveDigit, sixDigit)
+            notEmptyBlue(sixDigit, sixDigit)
 
             sixDigit.addTextChangedListener {
 
@@ -66,7 +66,7 @@ class OtpVerificationFragment : Fragment() {
 
         }
     }
-    fun notEmptyBlue(digit: EditText) {
+    fun notEmptyBlue(digit: EditText, degitSecond: EditText) {
 
         digit.addTextChangedListener {
 
@@ -74,6 +74,7 @@ class OtpVerificationFragment : Fragment() {
 
             if (number.length != 0) {
                 digit.setBackgroundResource(R.drawable.input_text_correct_blue)
+                degitSecond.requestFocus()
             }
             else digit.setBackgroundResource(R.drawable.input_text_correct)
 

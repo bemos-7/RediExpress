@@ -8,7 +8,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.rediexpress.R
-import com.example.rediexpress.presentation.screen.account.LoginFragment
+import com.example.rediexpress.presentation.screen.account.sign_in.LoginFragment
 import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragment
 import com.example.rediexpress.databinding.IntroductionFragmentBinding
 

@@ -15,16 +15,15 @@ class BaseAuthManager(
         email: String
     ){
         supabaseClient.auth.resetPasswordForEmail(email)
-        supabaseClient.auth.signUpWith(Email){
-            this.email = email
-            this.password = "SDFF"
-        }
     }
 
     suspend fun signUp(
+        name: String,
+        phone: String,
         email: String,
         password: String
     ) {
+        supabaseClient.postgrest["profiles"].insert(Profile(fullname = name, phone = phone))
         supabaseClient.auth.signUpWith(Email) {
             this.email = email
             this.password = password
@@ -32,19 +31,23 @@ class BaseAuthManager(
 
     }
 
-    suspend fun resetPassword(
-        phone: String,
-        name: String
-    ){
-        supabaseClient.auth.modifyUser {
-
+    suspend fun signIn(
+        email: String,
+        password: String
+    ) {
+        supabaseClient.auth.signInWith(Email) {
+            this.email = email
+            this.password = password
         }
     }
-
 }
 
 @Serializable
 data class Profile(
+    val id: Int? = null,
+    val createdAt: String = "",
+    val fullname: String,
+    val balance: Int = 0,
+    val rider: Boolean = false,
     val phone: String,
-    val name: String
 )

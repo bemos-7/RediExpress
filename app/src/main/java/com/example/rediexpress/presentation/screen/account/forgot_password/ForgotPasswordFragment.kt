@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.rediexpress.App
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.ForgotPasswordFragmentBinding
 import com.example.rediexpress.presentation.screen.account.OtpVerificationFragment
@@ -17,7 +18,7 @@ import com.example.rediexpress.presentation.screen.account.forgot_password.vm.Fo
 class ForgotPasswordFragment : Fragment() {
 
     lateinit var binding: ForgotPasswordFragmentBinding
-    lateinit var viewModelForgotPassword: ForgotPasswordViewModel
+    val viewModelForgotPassword = ForgotPasswordViewModel(App.instance.baseAuthManager)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,7 +30,6 @@ class ForgotPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModelForgotPassword = ViewModelProvider(this).get(ForgotPasswordViewModel::class.java)
 
         binding.emailInput.addTextChangedListener {
 

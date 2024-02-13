@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.databinding.ActivityMainBinding
+import com.example.rediexpress.presentation.ProfileFragment
 import com.example.rediexpress.presentation.screen.account.OtpVerificationFragment
 import com.example.rediexpress.presentation.screen.account.forgot_password.ForgotPasswordFragment
 import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragment
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         introductionFragment = IntroductionFragment()
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_container, IntroductionFragment())
+            .replace(R.id.frame_container, ProfileFragment())
             .commit()
 
 //        supportFragmentManager.beginTransaction()

@@ -1,9 +1,11 @@
 package com.example.rediexpress.data.auth
 
+import android.util.Log
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.OtpType
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
+import io.github.jan.supabase.gotrue.providers.builtin.OTP
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.serialization.Serializable
 
@@ -14,7 +16,10 @@ class BaseAuthManager(
     suspend fun sendOtp(
         email: String
     ){
-        supabaseClient.auth.resetPasswordForEmail(email)
+        Log.d("first", email)
+        supabaseClient.auth.signInWith(OTP) {
+            this.email = email
+        }
     }
 
     suspend fun signUp(

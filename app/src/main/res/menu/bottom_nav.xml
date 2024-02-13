@@ -6,23 +6,23 @@
         android:icon="@drawable/house_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Item" />
+        android:title="Home" />
     <item
         android:id="@+id/wallet_bn"
         android:icon="@drawable/wallet_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Item" />
+        android:title="Wallet" />
     <item
         android:id="@+id/track_bn"
-        android:icon="@drawable/house_2"
+        android:icon="@drawable/smart_car_bn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Item" />
+        android:title="Track" />
     <item
         android:id="@+id/profile_bn"
         android:icon="@drawable/profile_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Item" />
+        android:title="Profile" />
 </menu>

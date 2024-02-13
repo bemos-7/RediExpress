@@ -64,6 +64,12 @@ class OtpVerificationFragment : Fragment() {
 
             }.start()
 
+            sendButton.setOnClickListener {
+
+                parentFragmentManager.beginTransaction().replace(R.id.frame_container, EmptyFragment()).commit()
+
+            }
+
         }
     }
     fun notEmptyBlue(digit: EditText, degitSecond: EditText) {
@@ -74,6 +80,7 @@ class OtpVerificationFragment : Fragment() {
 
             if (number.length != 0) {
                 digit.setBackgroundResource(R.drawable.input_text_correct_blue)
+                degitSecond.isEnabled = true
                 degitSecond.requestFocus()
             }
             else digit.setBackgroundResource(R.drawable.input_text_correct)

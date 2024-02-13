@@ -3,6 +3,9 @@
     <style name="Base.Theme.RediExpress" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">
+            @color/blue
+        </item>
     </style>
 
     <style name="Theme.RediExpress" parent="Base.Theme.RediExpress" />

@@ -1,11 +1,14 @@
-package com.example.rediexpress
+package com.example.rediexpress.presentation.screen.order
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.rediexpress.MainActivity
+import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SendAPackageSecondFragmentBinding
+import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
 
 class SendAPackageSecondFragment : Fragment() {
 
@@ -73,9 +76,11 @@ class SendAPackageSecondFragment : Fragment() {
 
             var deliveryCharges = 2500
             var instantDelivery = 300
-            var tax = ((deliveryCharges + instantDelivery) - 0.05) - (deliveryCharges + instantDelivery)
+            var tax = (((deliveryCharges + instantDelivery) * 5) / 100)
 
-
+            binding.deliveryCharges.text = deliveryCharges.toString()
+            binding.instantDelivery.text = instantDelivery.toString()
+            binding.tax.text = tax.toString()
 
         }
 

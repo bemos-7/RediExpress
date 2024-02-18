@@ -28,7 +28,7 @@ class BaseAuthManager(
         email: String,
         password: String
     ) {
-        supabaseClient.postgrest["profiles"].insert(Profile(fullname = name, phone = phone))
+        supabaseClient.postgrest["profiles"].insert(Profile(fullname = name, phone = phone, email = email))
         supabaseClient.auth.signUpWith(Email) {
             this.email = email
             this.password = password
@@ -51,6 +51,7 @@ class BaseAuthManager(
 data class Profile(
     val id: Int? = null,
     val createdAt: String = "",
+    val email: String,
     val fullname: String,
     val balance: Int = 0,
     val rider: Boolean = false,

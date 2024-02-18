@@ -1,9 +1,13 @@
-package com.example.rediexpress
+package com.example.rediexpress.presentation.screen.order.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.rediexpress.data.delivery.BaseDeliveryManager
+import com.example.rediexpress.data.delivery.DestinationsDetails
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
-class PackageDataViewModel : ViewModel() {
+class PackageDataViewModel() : ViewModel() {
 
     val address: MutableLiveData<String> = MutableLiveData()
 

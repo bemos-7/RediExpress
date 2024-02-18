@@ -2,6 +2,7 @@ package com.example.rediexpress
 
 import android.app.Application
 import com.example.rediexpress.data.auth.BaseAuthManager
+import com.example.rediexpress.data.delivery.BaseDeliveryManager
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
@@ -23,13 +24,16 @@ class App : Application() {
     }
     private val supabaseClient by lazy {
         createSupabaseClient(
-            "https://swhjwngmcsnpmyctuvpe.supabase.co/",
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3aGp3bmdtY3NucG15Y3R1dnBlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg0OTMyMDUsImV4cCI6MjAwNDA2OTIwNX0.nIr-jF95sahGuahxr3eUWkSszEi04atMsISbeytwOB8") {
+            "https://jyigbjgcdvmxtjwixcea.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5aWdiamdjZHZteHRqd2l4Y2VhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgyNTU0MjksImV4cCI6MjAyMzgzMTQyOX0.oUtvji7CjDbYw_rk4OIKJO7Yz9fhgz8d1Rw9-_BnVEs") {
             install(Postgrest)
             install(Auth)
         }
     }
     val baseAuthManager by lazy {
         BaseAuthManager(supabaseClient)
+    }
+    val baseDeliveryManager by lazy {
+        BaseDeliveryManager(supabaseClient)
     }
 }

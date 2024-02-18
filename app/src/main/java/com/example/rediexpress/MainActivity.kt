@@ -2,20 +2,15 @@ package com.example.rediexpress
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.databinding.ActivityMainBinding
-import com.example.rediexpress.databinding.SendAPackageSecondFragmentBinding
 import com.example.rediexpress.presentation.ProfileFragment
-import com.example.rediexpress.presentation.screen.account.OtpVerificationFragment
-import com.example.rediexpress.presentation.screen.account.forgot_password.ForgotPasswordFragment
-import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragment
-import com.example.rediexpress.presentation.screen.account.sign_up.vm.SignUpViewModel
 import com.example.rediexpress.presentation.screen.introduction.IntroductionFragment
+import com.example.rediexpress.presentation.screen.order.ProgressBarFragment
+import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
+import com.example.rediexpress.presentation.screen.order.SendAPackageFragment
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var introductionFragment: IntroductionFragment
 
     lateinit var binding: ActivityMainBinding
 
@@ -27,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mainViewModel = ViewModelProvider(this).get(PackageDataViewModel::class.java)
-
-        introductionFragment = IntroductionFragment()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_container, ProgressBarFragment())
@@ -48,10 +41,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.frame_container, OtpVerificationFragment())
-//            .commit()
 
     }
 }

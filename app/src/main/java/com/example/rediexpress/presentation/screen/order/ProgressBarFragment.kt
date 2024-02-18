@@ -1,4 +1,4 @@
-package com.example.rediexpress
+package com.example.rediexpress.presentation.screen.order
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.rediexpress.databinding.ProfileFragmentBinding
+import com.example.rediexpress.App
+import com.example.rediexpress.R
 import com.example.rediexpress.databinding.ProgressBarFragmentBinding
+import com.example.rediexpress.presentation.screen.order.vm.DeliveryViewModel
 
 class ProgressBarFragment : Fragment() {
 

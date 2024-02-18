@@ -295,6 +295,7 @@
                             android:text="Instant delivery" />
 
                         <TextView
+                            android:id="@+id/instant_delivery"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/orange"
@@ -314,6 +315,7 @@
                             android:text="Tax and Service Charges" />
 
                         <TextView
+                            android:id="@+id/tax"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/orange"

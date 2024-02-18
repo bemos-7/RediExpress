@@ -1,4 +1,4 @@
-package com.example.rediexpress
+package com.example.rediexpress.presentation.screen.order
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -6,19 +6,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import com.example.rediexpress.App
+import com.example.rediexpress.MainActivity
+import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SendAPackageFragmentBinding
+import com.example.rediexpress.presentation.screen.order.vm.DeliveryViewModel
+import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
 
 class SendAPackageFragment : Fragment() {
 
     lateinit var binding: SendAPackageFragmentBinding
 
     lateinit var packageDataViewModel: PackageDataViewModel
+
+    val DeliveryViewModel = DeliveryViewModel(App.instance.baseDeliveryManager)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,6 +95,8 @@ class SendAPackageFragment : Fragment() {
                 packageDataViewModel.weightItem.value = weightOfItemPackage.text.toString()
                 packageDataViewModel.worthItem.value = worthOfItemsPackage.text.toString()
 
+                DeliveryViewModel.delivery(addressSecondInput.text.toString(), stateCountrySecondInput.text.toString(), phoneSecondInput.text.toString(), otherSecond.text.toString())
+
                 parentFragmentManager.beginTransaction().replace(R.id.frame_container, SendAPackageSecondFragment()).commit()
 
             }
@@ -105,3 +112,4 @@ class SendAPackageFragment : Fragment() {
     }
 
 }
+

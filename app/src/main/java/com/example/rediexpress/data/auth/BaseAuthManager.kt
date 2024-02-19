@@ -40,6 +40,8 @@ class BaseAuthManager(
         email: String,
         password: String
     ) {
+        Log.d("second", email)
+        Log.d("third", password)
         supabaseClient.auth.signInWith(Email) {
             this.email = email
             this.password = password

@@ -20,16 +20,19 @@ class BaseDeliveryManager(
         supabaseClient.postgrest["destinations_details"].insert(DestinationsDetails(address = address, country = country, phone = phone, others = others))
     }
 
-    suspend fun getDestinationsDetails() {
+    suspend fun getDestinationsDetails() : DestinationsDetails {
 
-        supabaseClient.postgrest["destinations_details"].select().decodeList<DestinationsDetails>()
+        val retDelivery = supabaseClient.postgrest["destinations_details"].select().decodeSingle<DestinationsDetails>()
+
+        return retDelivery
+
     }
 
 }
 @Serializable
 data class DestinationsDetails(
-    val id: Int? = null,
-    val id_order: Int? = null,
+    val id: String? = null,
+    val id_order: String? = null,
     val address: String,
     val country: String,
     val phone: String,

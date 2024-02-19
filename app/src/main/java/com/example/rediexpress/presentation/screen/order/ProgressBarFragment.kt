@@ -15,12 +15,15 @@ class ProgressBarFragment : Fragment() {
 
     lateinit var binding: ProgressBarFragmentBinding
     lateinit var timer: CountDownTimer
+
+    val deliveryViewModel = DeliveryViewModel(App.instance.baseDeliveryManager)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = ProgressBarFragmentBinding.inflate(inflater)
+        deliveryViewModel.getDelivery()
         return binding.root
     }
 
@@ -35,10 +38,20 @@ class ProgressBarFragment : Fragment() {
 
             override fun onFinish() {
                 binding.progressBar.setBackgroundResource(R.drawable.good_tick)
-                binding.progressBar.isIndeterminate = false
+                binding.progressBar.setProgress(0, true)
             }
 
         }.start()
+
+
+
+        deliveryViewModel.state.observe(viewLifecycleOwner) {
+
+            binding.trackText.text = it.address
+
+        }
+
+
 
     }
 

@@ -7,14 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.rediexpress.App
+import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
+import com.example.rediexpress.TrackingPackageFragment
 import com.example.rediexpress.databinding.ProgressBarFragmentBinding
+import com.example.rediexpress.presentation.ProfileFragment
 import com.example.rediexpress.presentation.screen.order.vm.DeliveryViewModel
+import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
 
 class ProgressBarFragment : Fragment() {
 
     lateinit var binding: ProgressBarFragmentBinding
     lateinit var timer: CountDownTimer
+
+    lateinit var packageDataViewModel: PackageDataViewModel
 
     val deliveryViewModel = DeliveryViewModel(App.instance.baseDeliveryManager)
     override fun onCreateView(
@@ -28,6 +34,11 @@ class ProgressBarFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val mainViewModel = activity as MainActivity
+
+        packageDataViewModel = mainViewModel.mainViewModel
+
 
         var count = 0
 
@@ -43,15 +54,23 @@ class ProgressBarFragment : Fragment() {
 
         }.start()
 
+        packageDataViewModel.trackNumber.observe(viewLifecycleOwner) {
 
-
-        deliveryViewModel.state.observe(viewLifecycleOwner) {
-
-            binding.trackText.text = it.address
+            binding.trackNumber.text = it
 
         }
 
+        binding.trackMyItem.setOnClickListener {
 
+            parentFragmentManager.beginTransaction().replace(R.id.frame_container, TrackingPackageFragment()).commit()
+
+        }
+
+        binding.goBackToHomepage.setOnClickListener {
+
+            parentFragmentManager.beginTransaction().replace(R.id.frame_container, ProfileFragment()).commit()
+
+        }
 
     }
 

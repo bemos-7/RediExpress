@@ -56,17 +56,7 @@ class IntroductionFragment : Fragment() {
             }
 
             skipBt.setOnClickListener {
-                anotherImage.setImageResource(com.example.rediexpress.R.drawable.rafiki)
-                anotherTextFirst.text = "Real-time Tracking"
-                anotherTextFirst2.text = "Track your packages/items from the comfort of your home till final destination"
-                nextBt.isEnabled = false
-                skipBt.isEnabled = false
-                nextBt.isInvisible = true
-                skipBt.isInvisible = true
-                signUpBt.isVisible = true
-                signUpBt.isEnabled = true
-                textTv.isVisible = true
-                textTv2.isVisible = true
+                parentFragmentManager.beginTransaction().replace(R.id.frame_container, LoginFragment()).commit()
             }
 
             signUpBt.setOnClickListener {

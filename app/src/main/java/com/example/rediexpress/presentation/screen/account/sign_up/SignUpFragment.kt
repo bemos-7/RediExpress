@@ -6,12 +6,15 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.App
+import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SignUpFragmentBinding
+import com.example.rediexpress.presentation.ProfileFragment
 import com.example.rediexpress.presentation.screen.account.sign_in.LoginFragment
 import com.example.rediexpress.presentation.screen.account.sign_up.vm.SignUpViewModel
 
@@ -19,6 +22,8 @@ class SignUpFragment : Fragment() {
 
     lateinit var binding: SignUpFragmentBinding
     val viewModelSignUp = SignUpViewModel(App.instance.baseAuthManager)
+
+    lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +37,7 @@ class SignUpFragment : Fragment() {
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
+        mainActivity = activity as MainActivity
 
         with(binding) {
 
@@ -110,6 +115,10 @@ class SignUpFragment : Fragment() {
                     }
                     else passwordInput2.setBackgroundResource(R.drawable.input_text_incorrect)
                 }
+
+                parentFragmentManager.beginTransaction().replace(R.id.frame_container, LoginFragment()).commit()
+
+                mainActivity.binding.bottomNavItems.isVisible = true
 
             }
 

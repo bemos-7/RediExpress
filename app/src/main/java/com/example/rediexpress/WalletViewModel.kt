@@ -1,27 +1,29 @@
-package com.example.rediexpress.presentation.screen.account.sign_in.vm
+package com.example.rediexpress
 
-import android.provider.ContactsContract.CommonDataKinds.Email
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rediexpress.data.auth.BaseAuthManager
+import com.example.rediexpress.data.auth.Profile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginViewModel(
+class WalletViewModel(
     private val authManager: BaseAuthManager
 ) : ViewModel() {
 
     val isLoading = MutableLiveData(false)
 
+    val state: MutableLiveData<Profile> = MutableLiveData()
+
     val scope = CoroutineScope(Dispatchers.IO)
 
-    fun signIn(email: String, password: String) {
+    fun getProfile(email: String) {
 
         scope.launch {
-                isLoading.postValue(true)
-                authManager.signIn(email, password)
-                isLoading.postValue(false)
+            isLoading.postValue(true)
+            state.postValue(authManager.getProfile(email))
+            isLoading.postValue(false)
         }
 
     }

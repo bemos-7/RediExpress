@@ -15,6 +15,8 @@ class PackageDataViewModel() : ViewModel() {
 
     val country: MutableLiveData<String> = MutableLiveData()
 
+    val other: MutableLiveData<String> = MutableLiveData()
+
 
     val addressSecond: MutableLiveData<String> = MutableLiveData()
 
@@ -22,10 +24,14 @@ class PackageDataViewModel() : ViewModel() {
 
     val countrySecond: MutableLiveData<String> = MutableLiveData()
 
+    val otherSeconnd: MutableLiveData<String> = MutableLiveData()
+
 
     val packageItem: MutableLiveData<String> = MutableLiveData()
 
     val weightItem: MutableLiveData<String> = MutableLiveData()
 
     val worthItem: MutableLiveData<String> = MutableLiveData()
+
+    val trackNumber: MutableLiveData<String> = MutableLiveData()
 }

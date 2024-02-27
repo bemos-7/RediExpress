@@ -15,7 +15,10 @@ import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SendAPackageFragmentBinding
 import com.example.rediexpress.presentation.screen.order.vm.DeliveryViewModel
+import com.example.rediexpress.presentation.screen.order.vm.OrderViewModel
 import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
+import java.util.UUID
+import kotlin.random.Random
 
 class SendAPackageFragment : Fragment() {
 
@@ -24,6 +27,7 @@ class SendAPackageFragment : Fragment() {
     lateinit var packageDataViewModel: PackageDataViewModel
 
     val DeliveryViewModel = DeliveryViewModel(App.instance.baseDeliveryManager)
+    val OrderViewModel = OrderViewModel(App.instance.baseOrderDetailes)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,17 +43,15 @@ class SendAPackageFragment : Fragment() {
 
         with(binding) {
 
-            phoneSecondInput.addTextChangedListener {
+            worthOfItemsPackage.addTextChangedListener {
 
-                var phoneSecond = it.toString()
+                var worthOfItems = it.toString()
 
-                if (addressInput.text.toString() != "" && stateCountryInput.text.toString() != "" && phoneInput.text.toString() != "" && addressSecondInput.text.toString() != "" && stateCountrySecondInput.text.toString() != "" && phoneSecond != "") {
+                if (addressInput.text.toString() != "" && worthOfItemsPackage.text.toString() != "" && stateCountryInput.text.toString() != "" && phoneInput.text.toString() != "" && addressSecondInput.text.toString() != "" && stateCountrySecondInput.text.toString() != "" && packageItemsPackage.text.toString() != "" && weightOfItemPackage.text.toString() != "" && worthOfItems != "") {
 
                     buttonNext.isEnabled = true
 
-
-                }
-                else buttonNext.isEnabled = false
+                } else buttonNext.isEnabled = false
 
             }
 
@@ -95,9 +97,39 @@ class SendAPackageFragment : Fragment() {
                 packageDataViewModel.weightItem.value = weightOfItemPackage.text.toString()
                 packageDataViewModel.worthItem.value = worthOfItemsPackage.text.toString()
 
-                DeliveryViewModel.delivery(addressSecondInput.text.toString(), stateCountrySecondInput.text.toString(), phoneSecondInput.text.toString(), otherSecond.text.toString())
+//                var firstRandom = Random.nextInt(1000, 9999)
+//                var secondRandom = Random.nextInt(1000, 9999)
+//                var thirdRandom = Random.nextInt(1000, 9999)
+//                var fourthRandom = Random.nextInt(1000, 9999)
+//
+//                var track = "R-${firstRandom}-${secondRandom}-${thirdRandom}-${fourthRandom}"
 
-                parentFragmentManager.beginTransaction().replace(R.id.frame_container, SendAPackageSecondFragment()).commit()
+                val track2 = UUID.randomUUID().toString()
+
+                packageDataViewModel.trackNumber.value = track2
+
+                DeliveryViewModel.delivery(
+                    addressSecondInput.text.toString(),
+                    stateCountrySecondInput.text.toString(),
+                    phoneSecondInput.text.toString(),
+                    otherSecond.text.toString(),
+                    track2
+                )
+
+                OrderViewModel.order(
+                    addressInput.text.toString(),
+                    stateCountryInput.text.toString(),
+                    phoneInput.text.toString(),
+                    other.text.toString(),
+                    weightOfItemPackage.text.toString(),
+                    worthOfItemsPackage.text.toString(),
+                    packageItemsPackage.text.toString()
+                )
+
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.frame_container, SendAPackageSecondFragment(), "secondSend")
+                    .addToBackStack(null)
+                    .commit()
 
             }
 
@@ -105,11 +137,10 @@ class SendAPackageFragment : Fragment() {
 
     }
 
-    fun checkPhone() : Boolean {
+    fun checkPhone(): Boolean {
 
         return binding.phoneSecondInput.text.toString() != ""
 
     }
 
 }
-

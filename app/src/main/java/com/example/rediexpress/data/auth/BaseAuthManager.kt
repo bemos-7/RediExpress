@@ -7,6 +7,8 @@ import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.gotrue.providers.builtin.OTP
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.result.PostgrestResult
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 class BaseAuthManager(
@@ -47,12 +49,27 @@ class BaseAuthManager(
             this.password = password
         }
     }
+
+    suspend fun getProfile(email: String): Profile {
+
+        var profile = supabaseClient.postgrest["profiles"].select() {
+
+            filter {
+                eq("email", email)
+            }
+
+        }.decodeSingle<Profile>()
+
+        return profile
+    }
 }
 
 @Serializable
 data class Profile(
     val id: Int? = null,
+    @SerialName("created_at")
     val createdAt: String = "",
+    val avatar: String = "",
     val email: String,
     val fullname: String,
     val balance: Int = 0,

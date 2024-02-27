@@ -3,6 +3,7 @@ package com.example.rediexpress
 import android.app.Application
 import com.example.rediexpress.data.auth.BaseAuthManager
 import com.example.rediexpress.data.delivery.BaseDeliveryManager
+import com.example.rediexpress.data.delivery.BaseOrderDetailes
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
@@ -35,5 +36,8 @@ class App : Application() {
     }
     val baseDeliveryManager by lazy {
         BaseDeliveryManager(supabaseClient)
+    }
+    val baseOrderDetailes by lazy {
+        BaseOrderDetailes(supabaseClient)
     }
 }

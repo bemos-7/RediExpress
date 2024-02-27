@@ -37,7 +37,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    //sdfsdf
 }
 
 dependencies {
@@ -54,5 +53,7 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation("io.github.jan-tennert.supabase:gotrue-kt")
     implementation("io.ktor:ktor-client-android:2.3.8")
+
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
 
 }

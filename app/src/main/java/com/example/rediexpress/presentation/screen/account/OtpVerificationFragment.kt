@@ -2,6 +2,7 @@ package com.example.rediexpress.presentation.screen.account
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +10,21 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.example.rediexpress.App
+import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.OtpVereficationFragmentBinding
+import com.example.rediexpress.isConnectedToInternet
+import com.example.rediexpress.presentation.screen.account.forgot_password.vm.SaveEmailForOTP
 
 class OtpVerificationFragment : Fragment() {
 
     lateinit var binding: OtpVereficationFragmentBinding
     lateinit var timer: CountDownTimer
 
+    val otpVerificationViewModel = OtpVerificationViewModel(App.instance.baseAuthManager)
+
+    lateinit var saveEmailForOTP: SaveEmailForOTP
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,9 +72,42 @@ class OtpVerificationFragment : Fragment() {
 
             }.start()
 
+            val mainActivity = activity as MainActivity
+
+            saveEmailForOTP = mainActivity.saveEmailForOTP
+
             sendButton.setOnClickListener {
 
-                parentFragmentManager.beginTransaction().replace(R.id.frame_container, EmptyFragment()).commit()
+                if (isConnectedToInternet(requireContext())) {
+
+                    saveEmailForOTP.emailSave.observe(viewLifecycleOwner) {
+
+                        val email = it
+
+                        val token = "${oneDigit.text}${twoDigit.text}${threeDigit.text}${fourDigit.text}${fiveDigit.text}${sixDigit.text}"
+
+                        otpVerificationViewModel.confirmOtp(email, token)
+
+                    }
+
+                } else {
+                    Toast.makeText(requireContext(), "Проверьте интернет соединение", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            otpVerificationViewModel.stateError.observe(viewLifecycleOwner) {
+                Log.d("errorTag", it)
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+
+            }
+
+            otpVerificationViewModel.showNextFragment.observe(viewLifecycleOwner) {
+
+                if (it) {
+
+                    parentFragmentManager.beginTransaction().replace(R.id.frame_container, EmptyFragment()).commit()
+
+                }
 
             }
 

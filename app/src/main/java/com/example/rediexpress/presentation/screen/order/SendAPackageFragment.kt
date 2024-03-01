@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import com.example.rediexpress.App
 import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SendAPackageFragmentBinding
+import com.example.rediexpress.isConnectedToInternet
 import com.example.rediexpress.presentation.screen.order.vm.DeliveryViewModel
 import com.example.rediexpress.presentation.screen.order.vm.OrderViewModel
 import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
@@ -26,8 +28,8 @@ class SendAPackageFragment : Fragment() {
 
     lateinit var packageDataViewModel: PackageDataViewModel
 
-    val DeliveryViewModel = DeliveryViewModel(App.instance.baseDeliveryManager)
-    val OrderViewModel = OrderViewModel(App.instance.baseOrderDetailes)
+    val deliveryViewModel = DeliveryViewModel(App.instance.baseDeliveryManager)
+    val orderViewModel = OrderViewModel(App.instance.baseOrderDetailes)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,51 +87,62 @@ class SendAPackageFragment : Fragment() {
 
             buttonNext.setOnClickListener {
 
-                packageDataViewModel.address.value = addressInput.text.toString()
-                packageDataViewModel.phone.value = phoneInput.text.toString()
-                packageDataViewModel.country.value = phoneInput.text.toString()
+                if (isConnectedToInternet(requireContext())) {
 
-                packageDataViewModel.addressSecond.value = addressSecondInput.text.toString()
-                packageDataViewModel.phoneSecond.value = phoneSecondInput.text.toString()
-                packageDataViewModel.countrySecond.value = stateCountrySecondInput.text.toString()
+                    packageDataViewModel.address.value = addressInput.text.toString()
+                    packageDataViewModel.phone.value = phoneInput.text.toString()
+                    packageDataViewModel.country.value = phoneInput.text.toString()
 
-                packageDataViewModel.packageItem.value = packageItemsPackage.text.toString()
-                packageDataViewModel.weightItem.value = weightOfItemPackage.text.toString()
-                packageDataViewModel.worthItem.value = worthOfItemsPackage.text.toString()
+                    packageDataViewModel.addressSecond.value = addressSecondInput.text.toString()
+                    packageDataViewModel.phoneSecond.value = phoneSecondInput.text.toString()
+                    packageDataViewModel.countrySecond.value = stateCountrySecondInput.text.toString()
 
-//                var firstRandom = Random.nextInt(1000, 9999)
-//                var secondRandom = Random.nextInt(1000, 9999)
-//                var thirdRandom = Random.nextInt(1000, 9999)
-//                var fourthRandom = Random.nextInt(1000, 9999)
-//
-//                var track = "R-${firstRandom}-${secondRandom}-${thirdRandom}-${fourthRandom}"
+                    packageDataViewModel.packageItem.value = packageItemsPackage.text.toString()
+                    packageDataViewModel.weightItem.value = weightOfItemPackage.text.toString()
+                    packageDataViewModel.worthItem.value = worthOfItemsPackage.text.toString()
 
-                val track2 = UUID.randomUUID().toString()
+                    val track2 = UUID.randomUUID().toString()
 
-                packageDataViewModel.trackNumber.value = track2
+                    packageDataViewModel.trackNumber.value = track2
 
-                DeliveryViewModel.delivery(
-                    addressSecondInput.text.toString(),
-                    stateCountrySecondInput.text.toString(),
-                    phoneSecondInput.text.toString(),
-                    otherSecond.text.toString(),
-                    track2
-                )
+                    deliveryViewModel.delivery(
+                        addressSecondInput.text.toString(),
+                        stateCountrySecondInput.text.toString(),
+                        phoneSecondInput.text.toString(),
+                        otherSecond.text.toString(),
+                        track2
+                    )
 
-                OrderViewModel.order(
-                    addressInput.text.toString(),
-                    stateCountryInput.text.toString(),
-                    phoneInput.text.toString(),
-                    other.text.toString(),
-                    weightOfItemPackage.text.toString(),
-                    worthOfItemsPackage.text.toString(),
-                    packageItemsPackage.text.toString()
-                )
+                    orderViewModel.order(
+                        addressInput.text.toString(),
+                        stateCountryInput.text.toString(),
+                        phoneInput.text.toString(),
+                        other.text.toString(),
+                        weightOfItemPackage.text.toString(),
+                        worthOfItemsPackage.text.toString(),
+                        packageItemsPackage.text.toString()
+                    )
 
-                parentFragmentManager.beginTransaction()
-                    .add(R.id.frame_container, SendAPackageSecondFragment(), "secondSend")
-                    .addToBackStack(null)
-                    .commit()
+                    parentFragmentManager.beginTransaction()
+                        .add(R.id.frame_container, SendAPackageSecondFragment(), "secondSend")
+                        .addToBackStack(null)
+                        .commit()
+
+                } else {
+                    Toast.makeText(requireContext(), "Отсутствует интеренет соединение", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+            deliveryViewModel.stateError.observe(viewLifecycleOwner) {
+
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+
+            }
+
+            orderViewModel.stateError.observe(viewLifecycleOwner) {
+
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
             }
 

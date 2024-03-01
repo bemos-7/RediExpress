@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.rediexpress.databinding.WalletFragmentBinding
 import com.example.rediexpress.presentation.screen.account.sign_in.vm.UserEmailSaveViewModel
@@ -55,14 +56,32 @@ class WalletFragment : Fragment() {
 
         walletViewModel.state.observe(viewLifecycleOwner) {
 
-            Log.d("balance", it.balance.toString())
-            binding.balanceText.text = it.balance.toString() + "$"
+            if (isConnectedToInternet(requireContext())) {
+
+                Log.d("balance", it.balance.toString())
+                binding.balanceText.text = it.balance.toString() + "$"
+
+            } else {
+                Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
+            }
 
         }
 
         walletViewModel.state.observe(viewLifecycleOwner) {
 
-            binding.userName.text = it.fullname
+            if (isConnectedToInternet(requireContext())) {
+
+                binding.userName.text = it.fullname
+
+            } else {
+                Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        walletViewModel.stateError.observe(viewLifecycleOwner) {
+
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
         }
 

@@ -12,16 +12,26 @@ class ForgotPasswordViewModel(
     private val authManager: BaseAuthManager
 ): ViewModel() {
 
+    val stateError: MutableLiveData<String> = MutableLiveData()
+
     var scope = CoroutineScope(Dispatchers.IO)
 
     fun forgotPass(
         email: String
     ) {
-        scope.launch {
 
-            authManager.sendOtp(email)
+        try {
 
+            scope.launch {
+
+                authManager.sendOtp(email)
+
+            }
+
+        } catch (e: Exception) {
+            stateError.value = e.message
         }
+
     }
 
 }

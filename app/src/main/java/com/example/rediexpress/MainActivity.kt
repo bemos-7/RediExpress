@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.databinding.ActivityMainBinding
 import com.example.rediexpress.presentation.AddPaymentMethodFragment
 import com.example.rediexpress.presentation.ProfileFragment
+import com.example.rediexpress.presentation.screen.account.forgot_password.vm.SaveEmailForOTP
 import com.example.rediexpress.presentation.screen.account.sign_in.vm.UserEmailSaveViewModel
 import com.example.rediexpress.presentation.screen.introduction.IntroductionFragment
 import com.example.rediexpress.presentation.screen.order.ProgressBarFragment
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var userEmailSaveViewModel: UserEmailSaveViewModel
 
+    lateinit var saveEmailForOTP: SaveEmailForOTP
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this).get(PackageDataViewModel::class.java)
 
         userEmailSaveViewModel = ViewModelProvider(this).get(UserEmailSaveViewModel::class.java)
+
+        saveEmailForOTP = ViewModelProvider(this).get(SaveEmailForOTP::class.java)
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_container, IntroductionFragment())

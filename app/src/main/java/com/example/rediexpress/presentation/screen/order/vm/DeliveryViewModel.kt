@@ -16,15 +16,27 @@ class DeliveryViewModel(
     val state: MutableLiveData<DestinationsDetails> = MutableLiveData()
     val isLoading = MutableLiveData(false)
 
+    val stateError: MutableLiveData<String> = MutableLiveData()
+
     val scope = CoroutineScope(Dispatchers.IO)
 
     fun delivery(address: String, country: String, phone: String, other: String, track: String) {
 
-        scope.launch {
+        try {
 
-            deliveryManager.destinationsDetails(address, country, phone, other, track)
+            scope.launch {
+
+                deliveryManager.destinationsDetails(address, country, phone, other, track)
+
+            }
+
+        } catch (e: Exception) {
+
+            stateError.value = e.message
 
         }
+
+
 
     }
 

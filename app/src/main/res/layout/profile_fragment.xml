@@ -50,7 +50,7 @@
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello Ken"
+                android:text=""
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
 
@@ -68,7 +68,7 @@
                     android:id="@+id/balance_profile_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000$"/>
+                    android:text=""/>
 
 
 

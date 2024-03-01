@@ -6,6 +6,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -14,6 +15,8 @@ import com.example.rediexpress.App
 import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SignUpFragmentBinding
+import com.example.rediexpress.hash
+import com.example.rediexpress.isConnectedToInternet
 import com.example.rediexpress.presentation.ProfileFragment
 import com.example.rediexpress.presentation.screen.account.sign_in.LoginFragment
 import com.example.rediexpress.presentation.screen.account.sign_up.vm.SignUpViewModel
@@ -111,7 +114,16 @@ class SignUpFragment : Fragment() {
 
                 if (fullNameInput.text != null || emailInput.text != null || passwordInput.text != null || passwordInput2 != null) {
                     if (passwordInput.text.toString() == passwordInput2.text.toString()) {
-                        viewModelSignUp.signUp(emailInput.text.toString(), passwordInput2.text.toString(), numberInput.text.toString(), fullNameInput.text.toString())
+                        val isNetworkAvaible = isConnectedToInternet(requireContext())
+                        if (isNetworkAvaible) {
+                            viewModelSignUp.signUp(emailInput.text.toString(), passwordInput2.text.toString(), numberInput.text.toString(), fullNameInput.text.toString())
+
+                            val hashPass = hash(binding.passwordInput2.text.toString())
+
+                            App.hashPassword = hashPass
+
+                        } else Toast.makeText(context, "internet connection invalid", Toast.LENGTH_SHORT).show()
+
                     }
                     else passwordInput2.setBackgroundResource(R.drawable.input_text_incorrect)
                 }
@@ -119,6 +131,12 @@ class SignUpFragment : Fragment() {
                 parentFragmentManager.beginTransaction().replace(R.id.frame_container, LoginFragment()).commit()
 
                 mainActivity.binding.bottomNavItems.isVisible = true
+
+            }
+
+            viewModelSignUp.stateError.observe(viewLifecycleOwner) {
+
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
 
             }
 

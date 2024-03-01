@@ -14,15 +14,25 @@ class LoginViewModel(
 
     val isLoading = MutableLiveData(false)
 
+    val stateError: MutableLiveData<String> = MutableLiveData()
+
     val scope = CoroutineScope(Dispatchers.IO)
 
     fun signIn(email: String, password: String) {
 
-        scope.launch {
+        try {
+
+            scope.launch {
                 isLoading.postValue(true)
                 authManager.signIn(email, password)
                 isLoading.postValue(false)
+            }
+
+        } catch (e: Exception) {
+            stateError.value = e.message
         }
+
+
 
     }
 

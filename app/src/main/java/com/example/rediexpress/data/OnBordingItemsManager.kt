@@ -23,16 +23,13 @@ class OnBordingItemsManager {
 
     fun isEmpty() : Boolean {
 
-
-
-        return true
+        return onBordingItems.isEmpty()
     }
 
     fun get() : OnBordingItem {
 
+        return onBordingItems.removeLast()
 
-
-        return OnBordingItem(R.drawable._123, "123", "2132")
     }
 
 }

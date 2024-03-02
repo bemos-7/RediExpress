@@ -1,50 +1,49 @@
 package com.example.rediexpress
 
-import com.example.rediexpress.data.OnBordingItemsManager
+import com.example.rediexpress.data.OnBoardingItemsManager
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class OnBordingItemsManagerTest {
+class OnBordingItemsManagetTest() {
 
-    private var onBordingManager = OnBordingItemsManager()
+    private var onBoardingItemsManager: OnBoardingItemsManager = OnBoardingItemsManager()
+
+    @Before
+    fun beforeEach() {
+        onBoardingItemsManager = OnBoardingItemsManager()
+    }
+
 
     @Test
     fun imageAndTextGet() {
 
-        val expected = OnBordingItem(R.drawable.radio_selected, "test", "testtest")
+        val expected = OnBordingItem(R.drawable._123, "133123", "1232333")
 
-        val listItems = listOf<OnBordingItem>(OnBordingItem(R.drawable._123, "123123", "1231222233") ,expected)
+        onBoardingItemsManager.add(expected)
+        onBoardingItemsManager.add(OnBordingItem(R.drawable._123, "qwerwere", "sefsdfsd"))
 
-        onBordingManager.init(listItems)
+        val actual = onBoardingItemsManager.get()
 
-        val actual = onBordingManager.get()
+        Assert.assertEquals(expected, actual)
 
-        Assert.assertEquals(actual, expected)
     }
 
     @Test
-    fun correctGetImageOnBordingItem() {
+    fun sizeChange() {
 
-        val expected = 0
+        val expected = 3
 
-        val listItems = listOf<OnBordingItem>(OnBordingItem(R.drawable._123, "123123", "1231222233"))
+        onBoardingItemsManager.add(OnBordingItem(R.drawable._123, "1", "1"))
+        onBoardingItemsManager.add(OnBordingItem(R.drawable._123, "2", "2"))
+        onBoardingItemsManager.add(OnBordingItem(R.drawable._123, "3", "1"))
+        onBoardingItemsManager.add(OnBordingItem(R.drawable._123, "4", "1"))
 
-        onBordingManager.init(listItems)
+        onBoardingItemsManager.get()
 
-        onBordingManager.get()
+        val actual = onBoardingItemsManager.size()
 
-        val actual = onBordingManager.size()
-
-        Assert.assertEquals(actual, expected)
-
-    }
-
-
-    @Before
-    fun beforeEach() {
-
-        onBordingManager = OnBordingItemsManager()
+        Assert.assertEquals(expected, actual)
 
     }
 

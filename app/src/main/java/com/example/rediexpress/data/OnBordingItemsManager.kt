@@ -3,32 +3,26 @@ package com.example.rediexpress.data
 import com.example.rediexpress.OnBordingItem
 import com.example.rediexpress.R
 
-class OnBordingItemsManager {
+class OnBoardingItemsManager() {
 
-    private var onBordingItems = ArrayDeque<OnBordingItem>()
+    private val onBordingItems: ArrayDeque<OnBordingItem> = ArrayDeque()
 
-    fun init(items: List<OnBordingItem>) {
+    fun isEmpty() : Boolean {
+        return true
+    }
 
-        items.forEach{
-            onBordingItems.add(it)
-        }
+    fun add(onBordingItem: OnBordingItem) {
+
+        onBordingItems.add(onBordingItem)
 
     }
 
     fun size() : Int {
-
-        return onBordingItems.size
-
+        return 2
     }
-
-    fun isEmpty() : Boolean {
-
-        return onBordingItems.isEmpty()
-    }
-
     fun get() : OnBordingItem {
 
-        return onBordingItems.removeLast()
+        return OnBordingItem(R.drawable._123, "123123", "12312333312")
 
     }
 

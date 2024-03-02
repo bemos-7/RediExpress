@@ -8,7 +8,7 @@ class OnBoardingItemsManager() {
     private val onBordingItems: ArrayDeque<OnBordingItem> = ArrayDeque()
 
     fun isEmpty() : Boolean {
-        return true
+        return onBordingItems.isEmpty()
     }
 
     fun add(onBordingItem: OnBordingItem) {
@@ -18,11 +18,11 @@ class OnBoardingItemsManager() {
     }
 
     fun size() : Int {
-        return 2
+        return onBordingItems.size
     }
     fun get() : OnBordingItem {
 
-        return OnBordingItem(R.drawable._123, "123123", "12312333312")
+        return onBordingItems.removeFirst()
 
     }
 

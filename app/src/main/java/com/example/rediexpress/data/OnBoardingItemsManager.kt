@@ -8,19 +8,19 @@ class OnBoardingItemsManager() {
     private val onBoardingItems = ArrayDeque<OnBordingItem>()
 
     fun isEmpty() : Boolean {
-        return true
+        return onBoardingItems.isEmpty()
     }
 
     fun size() : Int {
-        return 5
+        return onBoardingItems.size
     }
 
     fun add(onBordingItem: OnBordingItem) {
-        onBoardingItems.add(OnBordingItem(R.drawable.in_no_time_pana_1, "123132", "12344"))
+        onBoardingItems.add(onBordingItem)
     }
 
     fun get() : OnBordingItem {
-        return OnBordingItem(R.drawable._123, "1", "123123")
+        return onBoardingItems.removeFirst()
     }
 
 }

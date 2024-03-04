@@ -19,22 +19,35 @@ class OrderViewModel(
 
     val scope = CoroutineScope(Dispatchers.IO)
 
+    val stateError = MutableLiveData<String>()
+
     fun order(address: String, country: String, phone: String, other: String, weightItems: String, worthtItems: String, items: String) {
 
-        scope.launch {
+        try {
 
-            orderManager.orders(address, country, phone, other, weightItems, worthtItems, items)
+            scope.launch {
 
+                orderManager.orders(address, country, phone, other, weightItems, worthtItems, items)
+
+            }
+
+        } catch (e: Exception) {
+            stateError.value = e.message
         }
-
     }
 
     fun getOrder() {
 
-        scope.launch {
+        try {
 
-            state.postValue(orderManager.getOrders())
+            scope.launch {
 
+                state.postValue(orderManager.getOrders())
+
+            }
+
+        } catch (e: Exception) {
+            stateError.value = e.message
         }
 
     }

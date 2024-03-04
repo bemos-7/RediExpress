@@ -54,6 +54,8 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:gotrue-kt")
     implementation("io.ktor:ktor-client-android:2.3.8")
 
+    implementation("io.coil-kt:coil:2.2.2")
+
     implementation("org.osmdroid:osmdroid-android:6.1.18")
 
 }

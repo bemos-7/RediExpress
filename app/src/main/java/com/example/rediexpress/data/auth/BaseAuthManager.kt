@@ -24,6 +24,13 @@ class BaseAuthManager(
         }
     }
 
+    suspend fun confirmOTP(
+        email: String,
+        token: String
+    ) {
+        supabaseClient.auth.verifyEmailOtp(OtpType.Email.EMAIL, email = email, token = token)
+    }
+
     suspend fun signUp(
         name: String,
         phone: String,

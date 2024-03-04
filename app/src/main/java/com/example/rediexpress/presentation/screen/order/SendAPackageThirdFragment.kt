@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.rediexpress.App
 import com.example.rediexpress.MainActivity
@@ -12,6 +13,7 @@ import com.example.rediexpress.SuccessfulProgressFragment
 import com.example.rediexpress.TrackingPackageFragment
 import com.example.rediexpress.databinding.SendAPackageSecondFragmentBinding
 import com.example.rediexpress.databinding.SendAPackageThirdFragmentBinding
+import com.example.rediexpress.isConnectedToInternet
 import com.example.rediexpress.presentation.screen.order.vm.DeliveryViewModel
 import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
 
@@ -37,30 +39,54 @@ class SendAPackageThirdFragment : Fragment() {
         with(binding) {
 
             deliveryViewModel.state.observe(viewLifecycleOwner) {
+                if (isConnectedToInternet(requireContext())) {
 
-                addressSecond.text = it.address
+                    addressSecond.text = it.address
 
+                } else {
+                    Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            deliveryViewModel.state.observe(viewLifecycleOwner) {
+                if (isConnectedToInternet(requireContext())) {
+
+                    phoneSecond.text = it.phone
+
+                } else {
+                    Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
+                }
             }
 
             deliveryViewModel.state.observe(viewLifecycleOwner) {
 
-                phoneSecond.text = it.phone
+                if (isConnectedToInternet(requireContext())) {
 
-            }
+                    trackNumber.text = it.track
 
-            deliveryViewModel.state.observe(viewLifecycleOwner) {
-
-                trackNumber.text = it.track
-
+                } else {
+                    Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
+                }
             }
 
             deliveryViewModel.isLoading.observe(viewLifecycleOwner) {
 
-                if (it) {
-                    progressNet.visibility = View.VISIBLE
+                if (isConnectedToInternet(requireContext())) {
+
+                    if (it) {
+                        progressNet.visibility = View.VISIBLE
+                    } else {
+                        progressNet.visibility = View.GONE
+                    }
+
                 } else {
-                    progressNet.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
                 }
+            }
+
+            deliveryViewModel.stateError.observe(viewLifecycleOwner) {
+
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
             }
 

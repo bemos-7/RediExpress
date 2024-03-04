@@ -14,17 +14,27 @@ class WalletViewModel(
 
     val isLoading = MutableLiveData(false)
 
+    val stateError: MutableLiveData<String> = MutableLiveData()
+
     val state: MutableLiveData<Profile> = MutableLiveData()
 
     val scope = CoroutineScope(Dispatchers.IO)
 
     fun getProfile(email: String) {
 
-        scope.launch {
-            isLoading.postValue(true)
-            state.postValue(authManager.getProfile(email))
-            isLoading.postValue(false)
+        try {
+
+            scope.launch {
+                isLoading.postValue(true)
+                state.postValue(authManager.getProfile(email))
+                isLoading.postValue(false)
+            }
+
+        } catch (e: Exception) {
+            stateError.value = e.message
         }
+
+
 
     }
 

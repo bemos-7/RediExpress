@@ -5,6 +5,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -13,6 +14,8 @@ import com.example.rediexpress.App
 import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.LoginFragmentBinding
+import com.example.rediexpress.hash
+import com.example.rediexpress.isConnectedToInternet
 import com.example.rediexpress.presentation.ProfileFragment
 import com.example.rediexpress.presentation.screen.account.EmptyFragment
 import com.example.rediexpress.presentation.screen.account.forgot_password.ForgotPasswordFragment
@@ -23,7 +26,7 @@ import com.example.rediexpress.presentation.screen.account.sign_up.SignUpFragmen
 class LoginFragment : Fragment() {
 
     lateinit var binding: LoginFragmentBinding
-    val LoginViewModel = LoginViewModel(App.instance.baseAuthManager)
+    val loginViewModel = LoginViewModel(App.instance.baseAuthManager)
 
     lateinit var userEmailSaveViewModel: UserEmailSaveViewModel
 
@@ -84,17 +87,33 @@ class LoginFragment : Fragment() {
 
         binding.loginButton.setOnClickListener {
 
-            LoginViewModel.signIn(binding.emailInput.text.toString(), binding.passwordInput.text.toString())
+            if (isConnectedToInternet(requireContext())) {
 
-            userEmailSaveViewModel.email.value = binding.emailInput.text.toString()
+                loginViewModel.signIn(binding.emailInput.text.toString(), binding.passwordInput.text.toString())
 
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_container, ProfileFragment())
-                .commit()
+                val hashPass = hash(binding.passwordInput.text.toString())
 
-            mainActivity.binding.bottomNavItems.isVisible = true
+                App.hashPassword = hashPass
+
+                userEmailSaveViewModel.email.value = binding.emailInput.text.toString()
+
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, ProfileFragment())
+                    .commit()
+
+                mainActivity.binding.bottomNavItems.isVisible = true
+
+            } else {
+                Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
+        loginViewModel.stateError.observe(viewLifecycleOwner) {
+
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+
+        }
 
 
     }

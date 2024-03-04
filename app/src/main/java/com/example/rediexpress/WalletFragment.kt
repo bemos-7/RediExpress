@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import coil.load
 import com.example.rediexpress.databinding.WalletFragmentBinding
 import com.example.rediexpress.presentation.screen.account.sign_in.vm.UserEmailSaveViewModel
 
@@ -55,14 +57,15 @@ class WalletFragment : Fragment() {
 
         walletViewModel.state.observe(viewLifecycleOwner) {
 
-            Log.d("balance", it.balance.toString())
             binding.balanceText.text = it.balance.toString() + "$"
+            binding.userName.text = it.fullname
+            binding.avatar.load("https://static.scientificamerican.com/sciam/cache/file/32665E6F-8D90-4567-9769D59E11DB7F26_source.jpg?w=600")
 
         }
 
-        walletViewModel.state.observe(viewLifecycleOwner) {
+        walletViewModel.stateError.observe(viewLifecycleOwner) {
 
-            binding.userName.text = it.fullname
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
         }
 

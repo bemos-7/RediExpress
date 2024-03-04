@@ -1,6 +1,7 @@
 package com.example.rediexpress
 
 import android.app.Application
+import androidx.annotation.DrawableRes
 import com.example.rediexpress.data.auth.BaseAuthManager
 import com.example.rediexpress.data.delivery.BaseDeliveryManager
 import com.example.rediexpress.data.delivery.BaseOrderDetailes
@@ -14,8 +15,10 @@ class App : Application() {
     companion object {
         lateinit var instance: App
             private set
-    }
 
+        var hashPassword = ""
+
+    }
     override fun onCreate() {
         super.onCreate()
 
@@ -41,3 +44,10 @@ class App : Application() {
         BaseOrderDetailes(supabaseClient)
     }
 }
+
+data class OnBordingItem(
+    @DrawableRes
+    val image: Int,
+    val title: String,
+    val description: String
+)

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import coil.load
 import com.example.rediexpress.App
 import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
@@ -62,25 +63,10 @@ class ProfileFragment : Fragment() {
 
         walletViewModel.state.observe(viewLifecycleOwner) {
 
-            if (isConnectedToInternet(requireContext())) {
+            binding.balanceProfileText.text = it.balance.toString() + "$"
+            binding.profileName.text = it.fullname
 
-                binding.balanceProfileText.text = it.balance.toString() + "$"
-
-            } else {
-                Toast.makeText(requireContext(), "Отсутсвует интернест соединение", Toast.LENGTH_SHORT).show()
-            }
-
-        }
-
-        walletViewModel.state.observe(viewLifecycleOwner) {
-
-            if (isConnectedToInternet(requireContext())) {
-
-                binding.profileName.text = it.fullname
-
-            } else  {
-                Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
-            }
+            binding.avatar.load("https://static.scientificamerican.com/sciam/cache/file/32665E6F-8D90-4567-9769D59E11DB7F26_source.jpg?w=600")
 
         }
 

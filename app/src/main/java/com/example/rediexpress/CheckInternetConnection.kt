@@ -16,3 +16,4 @@ fun isConnectedToInternet(context: Context): Boolean {
     }
     return false
 }
+

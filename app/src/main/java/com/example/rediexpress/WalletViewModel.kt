@@ -16,6 +16,8 @@ class WalletViewModel(
 
     val stateError: MutableLiveData<String> = MutableLiveData()
 
+    val isBalanceHide = MutableLiveData<Boolean>(true)
+
     val state: MutableLiveData<Profile> = MutableLiveData()
 
     val scope = CoroutineScope(Dispatchers.IO)
@@ -34,8 +36,13 @@ class WalletViewModel(
             stateError.value = e.message
         }
 
+    }
 
+    fun changeBalanceHide() {
+
+        isBalanceHide.value = !isBalanceHide.value!!
 
     }
+
 
 }

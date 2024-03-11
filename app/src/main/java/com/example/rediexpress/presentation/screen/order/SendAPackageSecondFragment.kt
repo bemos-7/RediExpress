@@ -10,7 +10,9 @@ import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
 import com.example.rediexpress.databinding.SendAPackageSecondFragmentBinding
 import com.example.rediexpress.presentation.screen.order.vm.DeliveryViewModel
+import com.example.rediexpress.presentation.screen.order.vm.OrderViewModel
 import com.example.rediexpress.presentation.screen.order.vm.PackageDataViewModel
+import io.github.jan.supabase.postgrest.query.Order
 import java.util.UUID
 
 class SendAPackageSecondFragment : Fragment() {
@@ -20,6 +22,8 @@ class SendAPackageSecondFragment : Fragment() {
     lateinit var packageDataViewModel: PackageDataViewModel
 
     val deliveryViewModel = DeliveryViewModel(App.instance.baseDeliveryManager)
+
+    val orderViewModel = OrderViewModel(App.instance.baseOrderDetailes)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -96,6 +100,18 @@ class SendAPackageSecondFragment : Fragment() {
         }
 
         binding.editPackageButton.setOnClickListener {
+
+            packageDataViewModel.trackNumber.observe(viewLifecycleOwner) {
+
+                deliveryViewModel.deleteDD(it)
+
+            }
+
+            packageDataViewModel.phone.observe(viewLifecycleOwner) {
+
+                orderViewModel.deleteOrderDetails(it)
+
+            }
 
             parentFragmentManager.beginTransaction().remove(this).commit()
 

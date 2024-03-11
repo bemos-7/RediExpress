@@ -3,5 +3,18 @@
     <style name="Base.Theme.RediExpress" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <item name="colorPrimary">
+            @color/blue
+        </item>
+
+        <item name="background">
+            @color/black
+        </item>
+
+        <item name="colorOnBackground">
+            @color/white
+        </item>
+
     </style>
 </resources>

@@ -52,6 +52,15 @@ class OrderViewModel(
 
     }
 
+    fun deleteOrderDetails(phone: String) {
+
+        scope.launch {
+
+            orderManager.deleteOrderDetails(phone)
+
+        }
+    }
+
     fun deliveryOutput() {
 
         scope.launch {

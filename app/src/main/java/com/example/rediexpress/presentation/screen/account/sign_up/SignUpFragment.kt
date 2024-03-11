@@ -2,6 +2,7 @@ package com.example.rediexpress.presentation.screen.account.sign_up
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.App
 import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
+import com.example.rediexpress.data.passwordHash.MainViewModel
 import com.example.rediexpress.databinding.SignUpFragmentBinding
 import com.example.rediexpress.hash
 import com.example.rediexpress.isConnectedToInternet
@@ -28,6 +30,8 @@ class SignUpFragment : Fragment() {
 
     lateinit var mainActivity: MainActivity
 
+    lateinit var passwordSave: MainViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +45,8 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         mainActivity = activity as MainActivity
+
+        passwordSave = mainActivity.mainViewModelPass
 
         with(binding) {
 
@@ -119,6 +125,16 @@ class SignUpFragment : Fragment() {
                             viewModelSignUp.signUp(emailInput.text.toString(), passwordInput2.text.toString(), numberInput.text.toString(), fullNameInput.text.toString())
 
                             val hashPass = hash(binding.passwordInput2.text.toString())
+
+                            passwordSave.set(hashPass)
+                            passwordSave.get()
+
+                            passwordSave.state.observe(viewLifecycleOwner) {
+
+                                Log.d("passwordKey", it)
+
+                            }
+
 
                             App.hashPassword = hashPass
 

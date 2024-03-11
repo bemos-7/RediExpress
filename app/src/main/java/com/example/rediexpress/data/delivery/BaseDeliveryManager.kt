@@ -31,6 +31,18 @@ class BaseDeliveryManager(
 
     }
 
+    suspend fun deleteDestinationDetails(track: String) {
+
+        supabaseClient.postgrest["destinations_details"].delete() {
+
+            filter {
+                eq("track", track)
+            }
+
+        }
+
+    }
+
 }
 @Serializable
 data class DestinationsDetails(

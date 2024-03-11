@@ -1,14 +1,18 @@
 package com.example.rediexpress
 
 import android.app.Application
+import android.util.Log
 import androidx.annotation.DrawableRes
 import com.example.rediexpress.data.auth.BaseAuthManager
 import com.example.rediexpress.data.delivery.BaseDeliveryManager
 import com.example.rediexpress.data.delivery.BaseOrderDetailes
+import com.example.rediexpress.data.passwordHash.MainViewModel
+import com.example.rediexpress.data.passwordHash.PasswordRepository
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
+import kotlinx.coroutines.selects.SelectInstance
 
 class App : Application() {
 
@@ -24,6 +28,8 @@ class App : Application() {
 
         instance = this
 
+        val passwordRepository: PasswordRepository = PasswordRepository(this)
+        Log.d("passwordKey", passwordRepository.get())
 
     }
     private val supabaseClient by lazy {
@@ -51,3 +57,4 @@ data class OnBordingItem(
     val title: String,
     val description: String
 )
+

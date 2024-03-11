@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import coil.load
 import com.example.rediexpress.App
@@ -63,10 +64,16 @@ class ProfileFragment : Fragment() {
 
         walletViewModel.state.observe(viewLifecycleOwner) {
 
-            binding.balanceProfileText.text = it.balance.toString() + "$"
+            if (walletViewModel.isBalanceHide.value!!) {
+
+                binding.balanceProfileText.text = it.balance.toString() + "$"
+
+            } else binding.balanceProfileText.text = "*****$"
+
+
             binding.profileName.text = it.fullname
 
-            binding.avatar.load("https://static.scientificamerican.com/sciam/cache/file/32665E6F-8D90-4567-9769D59E11DB7F26_source.jpg?w=600")
+            binding.avatar.load(it.avatar)
 
         }
 
@@ -85,16 +92,41 @@ class ProfileFragment : Fragment() {
 
         }
 
+        binding.eyeButton.setOnClickListener {
+
+            walletViewModel.changeBalanceHide()
+
+        }
+
+        walletViewModel.isBalanceHide.observe(viewLifecycleOwner) {
+
+            if (it) {
+                 binding.balanceProfileText.text = walletViewModel.state.value?.balance.toString() + "$"
+            } else {
+                binding.balanceProfileText.text = "*****$"
+            }
+
+        }
+
+
+
         walletViewModel.stateError.observe(viewLifecycleOwner) {
 
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
         }
 
-//        binding.swithMode.setOnCheckedChangeListener { buttonView, isChecked ->
-//
-//
-//        }
+        binding.swithMode.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked == true) {
+
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
+        }
     }
 
 }

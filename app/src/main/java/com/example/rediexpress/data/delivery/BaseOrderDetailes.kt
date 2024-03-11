@@ -33,6 +33,18 @@ class BaseOrderDetailes(
 
     }
 
+    suspend fun deleteOrderDetails(phone: String) {
+
+        supabaseClient.postgrest["orders"].delete {
+
+            filter {
+                eq("phone", phone)
+            }
+
+        }
+
+    }
+
 }
 @Serializable
 data class Orders(

@@ -36,7 +36,15 @@ class DeliveryViewModel(
 
         }
 
+    }
 
+    fun deleteDD(track: String) {
+
+        scope.launch {
+
+            deliveryManager.deleteDestinationDetails(track)
+
+        }
 
     }
 

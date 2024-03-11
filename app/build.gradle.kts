@@ -56,6 +56,8 @@ dependencies {
 
     implementation("io.coil-kt:coil:2.2.2")
 
+    implementation("androidx.biometric:biometric:1.2.0-alpha03")
+
     implementation("org.osmdroid:osmdroid-android:6.1.18")
 
 }

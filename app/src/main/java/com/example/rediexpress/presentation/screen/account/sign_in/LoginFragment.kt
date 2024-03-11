@@ -1,6 +1,7 @@
 package com.example.rediexpress.presentation.screen.account.sign_in
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.rediexpress.App
 import com.example.rediexpress.MainActivity
 import com.example.rediexpress.R
+import com.example.rediexpress.data.passwordHash.MainViewModel
 import com.example.rediexpress.databinding.LoginFragmentBinding
 import com.example.rediexpress.hash
 import com.example.rediexpress.isConnectedToInternet
@@ -32,6 +34,8 @@ class LoginFragment : Fragment() {
 
     lateinit var mainActivity: MainActivity
 
+    lateinit var mainViewModelPass: MainViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +48,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         mainActivity = activity as MainActivity
+
+        mainViewModelPass = mainActivity.mainViewModelPass
 
         binding.signText.setOnClickListener {
 
@@ -93,6 +99,8 @@ class LoginFragment : Fragment() {
 
                 val hashPass = hash(binding.passwordInput.text.toString())
 
+                mainViewModelPass.set(hashPass)
+
                 App.hashPassword = hashPass
 
                 userEmailSaveViewModel.email.value = binding.emailInput.text.toString()
@@ -106,6 +114,13 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Отсутствует интернет соединение", Toast.LENGTH_SHORT).show()
             }
+
+        }
+        mainViewModelPass.get()
+
+        mainViewModelPass.state.observe(viewLifecycleOwner) {
+
+            Log.d("passwordKey", it)
 
         }
 
